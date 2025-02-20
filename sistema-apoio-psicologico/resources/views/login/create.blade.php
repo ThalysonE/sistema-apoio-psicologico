@@ -3,17 +3,29 @@
         {{ $error }} <br>
     @endforeach
 @endif
-<form action="{{ route('users.store') }}" method="POST">
-    @csrf
-    <label for="nome">Nome</label> <br>
-    <input type="text" name="name" id="name"> <br>
 
-    <label for="email">Email</label> <br>
-    <input type="email" name="email" id="email"> <br>
+@extends('login.layout')
+@section('title', "Cadastro")
 
-    <label for="password">Senha</label> <br>
-    <input type="password" name="password" id="password"> <br>
-
-    <button type="submit">Cadastrar</button>
-    
-</form>
+@section('conteudo')
+<div class="container login-container">
+        <div class="row align-items-center">
+            <div class="col-md-10 mx-auto col-lg-5">
+                <form action="{{ route('users.store') }}" method="POST" class ="p-4 p-md5 border rounded-3 bg-light">
+                    @csrf
+                    <h1 class="mb-2">Cadastro</h1>
+                    <p class="mb-4">Sistema de apoio psicológico</p>
+                    <div class="form-floating mb-4">
+                        <input name="email" id="email" class="form-control" placeholder="E-mail"> 
+                        <label for="email">E-mail</label>
+                    </div>
+                    <div class="form-floating mb-4">
+                        <input type="password" name="password" id="password"  class="form-control" placeholder="Senha"> 
+                        <label for="password">Senha</label> 
+                    </div>
+                    <button class="btn btn-lg btn-success w-100" type="submit">Cadastrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
