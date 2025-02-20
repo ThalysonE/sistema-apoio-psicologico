@@ -36,5 +36,9 @@ class LoginController extends Controller
         return redirect(route('login.form'));
 
     }
+    public function create(){
+        return view('login.create');
+
+    }
 }
 
