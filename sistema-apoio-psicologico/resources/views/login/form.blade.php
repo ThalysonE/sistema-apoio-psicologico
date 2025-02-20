@@ -29,10 +29,13 @@
                         <input type="password" name="password" id="password"  class="form-control" placeholder="Senha"> 
                         <label for="password">Senha</label> 
                     </div>
-                    <div class="checkbox mb-4">
-                        <label>
+                    <div class=" d-flex justify-content-between mb-4">
+                        <label class="checkbox">
                             <input type="checkbox" value="remember"> Lembrar de mim
                         </label>
+                        <div>
+                            <a href="{{ route('login.create') }}">Criar Conta</a>
+                        </div>
                     </div>
                     <button class="btn btn-lg btn-success w-100" type="submit">Entrar</button>
                 </form>

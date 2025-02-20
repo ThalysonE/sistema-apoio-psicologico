@@ -16,6 +16,6 @@ Route::post('/auth', [LoginController::class, 'auth'])->name('login.auth');
 Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
 Route::get('/register', [LoginController::class, 'create'])->name('login.create');
 
-
+Route::view('/home', 'pages.home')->name('pages.home');
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
