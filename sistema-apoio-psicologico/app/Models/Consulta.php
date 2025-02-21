@@ -11,7 +11,7 @@ class Consulta extends Model
 
     // Definindo o nome da tabela
     protected $table = 'consulta';
-
+    protected $fillable = ['id_user', 'id_consulta_disponivel'];
     // Relacionamento com User (Usuário que marcou a consulta)
     public function user()
     {

@@ -1,36 +1,34 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
-use App\Models\ConsultaDisponivel;
-use App\Models\Consulta;
 use Illuminate\Http\Request;
+use App\Models\Consulta;
+use App\Models\ConsultaDisponivel;
+use Illuminate\Support\Facades\Auth;
 
 class AgendarConsultaController extends Controller
 {
-    // Exibir o formulário de agendamento de consultas
     public function index()
     {
-        // Pega as consultas disponíveis para o usuário
-        $consultasDisponiveis = ConsultaDisponivel::with('psicologo')->whereDate('data', '>=', now())->get();
-
-        return view('agendar-consulta', compact('consultasDisponiveis'));
+        $consultasDisponiveis = ConsultaDisponivel::with('psicologo')->get();
+        return view('agendar_consulta', compact('consultasDisponiveis'));
     }
 
-    // Processar o agendamento de consulta
     public function store(Request $request)
     {
         $request->validate([
             'id_consulta_disponivel' => 'required|exists:consultas_disponiveis,id',
         ]);
 
-        // Cria uma nova consulta para o usuário logado
         Consulta::create([
-            'id_user' => auth()->user()->id,
+            'id_user' => Auth::id(),
             'id_consulta_disponivel' => $request->id_consulta_disponivel,
         ]);
 
-        return redirect()->route('home')->with('success', 'Consulta agendada com sucesso!');
+        return redirect()->route('agendar.consulta')->with('success', 'Consulta agendada com sucesso!');
     }
 }
+
 
