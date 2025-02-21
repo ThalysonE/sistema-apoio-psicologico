@@ -13,16 +13,14 @@ return new class extends Migration
     {
         Schema::create('consulta', function (Blueprint $table) {
             $table->id();
-            $table->datetime('data');
-
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users');
+            
+            $table->unsignedBigInteger('id_consulta_disponivel');
+            $table->foreign('id_consulta_disponivel')->references('id')->on('consultas_disponiveis');
 
-            $table->unsignedBigInteger('id_psychologist');
-            $table->foreign('id_psychologist')->references('id')->on('psychologist');
             $table->timestamps();
         });
-       
     }
 
     /**
