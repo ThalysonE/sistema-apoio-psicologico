@@ -11,7 +11,8 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /var/www/html
 
 # Copiar apenas os arquivos essenciais para o Composer primeiro (melhora o cache)
-COPY composer.json composer.lock ./
+COPY sistema-apoio-psicologico/composer.json sistema-apoio-psicologico/composer.lock ./
+
 
 # Baixar e instalar o Composer corretamente
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
