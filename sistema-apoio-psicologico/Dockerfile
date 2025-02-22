@@ -10,16 +10,19 @@ RUN apt-get update && apt-get install -y \
 # Definir o diretório de trabalho dentro do container
 WORKDIR /var/www/html
 
-# Copiar os arquivos do projeto (se estiver dentro de uma subpasta, ajuste aqui)
-COPY sistema-apoio-psicologico/ . 
+# Copiar apenas os arquivos essenciais para o Composer primeiro (melhora o cache)
+COPY sistema-apoio-psicologico/composer.json sistema-apoio-psicologico/composer.lock ./
 
 # Instalar o Composer e rodar `composer install`
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN composer install --no-dev --optimize-autoloader
 
+# Agora copiar o restante dos arquivos do projeto Laravel
+COPY sistema-apoio-psicologico/ ./
+
 # Definir permissões para storage e cache
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Expor a porta 80 (Apache)
 EXPOSE 80
