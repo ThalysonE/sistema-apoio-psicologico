@@ -29,7 +29,9 @@ RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-dev --optimize-autoloader --v
 # Define permissões para o diretório do projeto (se necessário)
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Expõe a porta 80 (porta padrão do Apache)
-EXPOSE 80
+# Configura o Apache para usar a pasta "public" como raiz
+RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
+RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-# O comando padrão da imagem php-apache já inicia o Apache, então não é necessário definir um CMD.
+# Expõe a porta 80 (padrão do Apache)
+EXPOSE 80
