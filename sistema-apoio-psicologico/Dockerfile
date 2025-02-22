@@ -13,22 +13,30 @@ WORKDIR /var/www/html
 # Copiar apenas os arquivos essenciais para o Composer primeiro (melhora o cache)
 COPY sistema-apoio-psicologico/composer.json sistema-apoio-psicologico/composer.lock ./
 
-
 # Baixar e instalar o Composer corretamente
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
     php composer-setup.php && \
     mv composer.phar /usr/local/bin/composer && \
     rm composer-setup.php
 
-# Rodar o Composer para instalar dependências do Laravel
-RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-dev --optimize-autoloader
+# Rodar o Composer para instalar dependências do Laravel com log detalhado
+RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-dev --optimize-autoloader --verbose
 
 # Agora copiar o restante dos arquivos do projeto Laravel
 COPY . ./
 
 # Definir permissões para storage e cache
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-RUN chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data storage bootstrap/cache
+RUN chmod -R 777 storage bootstrap/cache
+
+# Criar o link do storage (corrige erro ao acessar arquivos públicos)
+RUN php artisan storage:link || true
+
+# Gerar a chave da aplicação
+RUN php artisan key:generate
+
+# Rodar as migrations automaticamente
+RUN php artisan migrate --force || true
 
 # Expor a porta 80 (Apache)
 EXPOSE 80
