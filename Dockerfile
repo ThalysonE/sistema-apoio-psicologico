@@ -17,6 +17,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Habilita o mod_rewrite do Apache (necessário para projetos como Laravel)
 RUN a2enmod rewrite
 
+# Configura o ServerName para localhost
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
 # Copia o código do projeto para o diretório do Apache
 COPY . /var/www/html
 
