@@ -11,14 +11,19 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /var/www/html
 
 # Copiar apenas os arquivos essenciais para o Composer primeiro (melhora o cache)
-COPY sistema-apoio-psicologico/composer.json sistema-apoio-psicologico/composer.lock ./
+COPY composer.json composer.lock ./
 
-# Instalar o Composer e rodar `composer install`
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer install --no-dev --optimize-autoloader
+# Baixar e instalar o Composer corretamente
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    php composer-setup.php && \
+    mv composer.phar /usr/local/bin/composer && \
+    rm composer-setup.php
+
+# Rodar o Composer para instalar dependências do Laravel
+RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-dev --optimize-autoloader
 
 # Agora copiar o restante dos arquivos do projeto Laravel
-COPY sistema-apoio-psicologico/ ./
+COPY . ./
 
 # Definir permissões para storage e cache
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
