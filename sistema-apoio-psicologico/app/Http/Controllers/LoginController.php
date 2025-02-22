@@ -21,7 +21,7 @@ class LoginController extends Controller
             ]
         );
 
-        if(Auth::attempt($credenciais)){
+        if(Auth::attempt($credenciais, $request->remember)){
             $request ->session()->regenerate();
             return redirect()->intended(route('pages.home'));
 
@@ -29,7 +29,7 @@ class LoginController extends Controller
             return redirect()->back()->with('erro', 'Email ou senha inválida.');
         }
     }
-    public function logout(Request $resquest){
+    public function logout(Request $request){
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

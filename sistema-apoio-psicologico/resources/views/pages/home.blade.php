@@ -33,7 +33,7 @@
                     <a class="nav-link active text" aria-current="page" href="#">Início</a>
                 </div>
                 <div class="navbar-nav ms-auto">
-                    <a class="nav-link text-danger text" href="#">Sair</a>
+                    <a class="nav-link text-danger text" href="{{route('login.logout')}}">Sair</a>
                 </div>
             </div>
         </div>

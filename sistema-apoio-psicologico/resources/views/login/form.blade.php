@@ -31,7 +31,7 @@
                     </div>
                     <div class=" d-flex justify-content-between mb-4">
                         <label class="checkbox">
-                            <input type="checkbox" value="remember"> Lembrar de mim
+                            <input type="checkbox" value="remember" name="remember"> Lembrar de mim
                         </label>
                         <div>
                             <a href="{{ route('login.create') }}">Criar Conta</a>
