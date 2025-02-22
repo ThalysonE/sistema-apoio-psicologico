@@ -23,4 +23,10 @@ class ConsultaController extends Controller
         // Retorna a view com as consultas
         return view('pages.home', compact('consultas'));
     }
+    public function desmarcar($id){
+        $consulta = Consulta::findOrFail($id);
+        $consulta->delete();
+
+        return redirect()->back()->with('success', 'Consulta desmarcada com sucesso');
+    }
 }

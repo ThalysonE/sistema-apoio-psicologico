@@ -1,14 +1,3 @@
-@if(Session::has('erro'))
-    {{ Session::get('erro') }}
-@endif
-
-@if($errors->any())
-    @foreach($errors->all() as $error)
-        {{ $error }} <br>
-    @endforeach
-@endif
-
-
 <!doctype html>
 <html lang="en">
   <head>

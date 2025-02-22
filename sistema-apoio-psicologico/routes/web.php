@@ -21,7 +21,7 @@ Route::get('/register', [LoginController::class, 'create'])->name('login.create'
 
 Route::get('/agendar-consulta', [AgendarConsultaController::class, 'index'])->name('agendar.consulta');
 Route::post('/agendar-consulta', [AgendarConsultaController::class, 'store'])->name('agendar.consulta.store');
-
+Route::delete('desmarca-consulta/{id}', [ConsultaController::class,'desmarcar'])->name('consulta.desmarcar');
 
 Route::get('/home', [ConsultaController::class, 'mostrarConsultas'])->name('pages.home');
 

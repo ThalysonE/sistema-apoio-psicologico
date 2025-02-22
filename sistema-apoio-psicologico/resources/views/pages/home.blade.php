@@ -19,6 +19,23 @@
         .result{
             margin:40px 10px;
         }
+        .custom-table {
+        border: 2px solid #75797CFF; /* Cor da borda */
+        border-radius: 8px; /* Bordas arredondadas */
+        overflow: hidden; /* Garante que os cantos arredondados funcionem */
+    }
+    th, td{
+        text-align:center;
+    }
+    .tabela, td{
+        border:1px solid #B7BEC5FF;
+    }
+    .tabela{
+        max-width: 1400px;
+    }
+    .margin-consultas{
+        margin-top:60px;
+    }
     </style>
 </head>
 <body>
@@ -40,17 +57,47 @@
     </nav>
 
     <div class="conteudo">
-        <h2>Consultas Marcadas</h2>
-        <div class="result">
-            @if($consultas->isEmpty())
-                <p>Nenhuma consulta marcada <a href="{{ route('agendar.consulta') }}" class="btn btn-success">Marcar Consulta</a></p>
-            @else
-                @foreach($consultas as $consulta)
-                    <p>Consulta ID: {{ $consulta->id }} | Data: {{ \Carbon\Carbon::parse($consulta->consultaDisponivel->data)->format('d/m/Y') }} | Hora: {{ \Carbon\Carbon::parse($consulta->consultaDisponivel->data)->format('H:i') }}</p>
-                @endforeach
-            @endif
-        </div>
+    {{-- Mensagem de boas-vindas --}}
+    <h2 class="mb-5">
+        Bem-vindo, <span class="text-primary">{{ Auth::user()->name }}</span>!
+    </h2>
+
+    <h3 class="margin-consultas">Consultas Marcadas</h3>
+    <div class="result">
+        @if($consultas->isEmpty())
+            <p>Nenhuma consulta marcada 
+                <a href="{{ route('agendar.consulta') }}" class="btn btn-success ms-3">Marcar Consulta</a>
+            </p>
+        @else
+            <table class="table table-striped table-hover tabela">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($consultas as $consulta)
+                        <tr>
+                            <td>{{ $consulta->id }}</td>
+                            <td>{{ \Carbon\Carbon::parse($consulta->consultaDisponivel->data)->format('d/m/Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($consulta->consultaDisponivel->data)->format('H:i') }}</td>
+                            <td>
+                                <form action="{{ route('consulta.desmarcar', $consulta->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Desmarcar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
     </div>
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
