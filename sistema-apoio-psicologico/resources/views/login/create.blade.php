@@ -16,8 +16,8 @@
                     <h1 class="mb-2">Cadastro</h1>
                     <p class="mb-4">Sistema de apoio psicológico</p>
                     <div class="form-floating mb-4">
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Name"> 
-                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Nome"> 
+                        <label for="name">Nome</label>
                     </div>
                     <div class="form-floating mb-4">
                         <input type="email" name="email" id="email" class="form-control" placeholder="E-mail"> 
