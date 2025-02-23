@@ -36,5 +36,8 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
 RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
+# Executa as migrations e seeders antes de iniciar o servidor
+CMD php artisan migrate --seed --force && apache2-foreground
+
 # Expõe a porta 80 (padrão do Apache)
 EXPOSE 80
