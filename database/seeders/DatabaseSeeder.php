@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             //UserSeeder::class
-            PsicologoSeeder::class,
-            ConsultaDisponivelSeeder::class
+            //PsicologoSeeder::class,
+            //ConsultaDisponivelSeeder::class
         ]);
     }
 }
