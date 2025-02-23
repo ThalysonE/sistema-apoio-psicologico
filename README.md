@@ -6,7 +6,7 @@ Psicoagenda is a Laravel-based appointment scheduling system designed for psycho
 
 - **Login and Registration**: Secure authentication for users.
 - **Appointment Scheduling**: Patients can book consultations based on psychologists' availability.
-- **Availability Management**: Psychologists can set their available time slots.
+- **Availability Management**: Psychologists can set their available time slots.(future)
 - **Secure and Scalable**: Built with Laravel to ensure performance and data protection.
 
   
