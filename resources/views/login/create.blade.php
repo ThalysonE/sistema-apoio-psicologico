@@ -11,7 +11,7 @@
 <div class="container login-container">
         <div class="row align-items-center">
             <div class="col-md-10 mx-auto col-lg-5">
-                <form action="{{ route('users.store') }}" method="POST" class ="p-4 p-md5 border rounded-3 bg-light">
+                <form action="{{ secure_url(route('users.store')) }}" method="POST" class ="p-4 p-md5 border rounded-3 bg-light">
                     @csrf
                     <h1 class="mb-2">Cadastro</h1>
                     <p class="mb-4">Sistema de apoio psicológico</p>
